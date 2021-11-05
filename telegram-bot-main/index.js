@@ -1,4 +1,3 @@
-FEHLERQQ
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -130,7 +129,7 @@ const sendQeueContent = () => {
                 }
                 const opts = {
                     "reply_markup": {
-                        "inline_keyboard": [currentMessagesToSend[index].buttons.map(setReplyKeyboard)]
+                        "keyboard": [currentMessagesToSend[index].buttons.map(setReplyKeyboard)]
                     }
                 }
                 telegramRequest.url = `${telegram_url}${telegram_bot_id}/sendMessage`;
