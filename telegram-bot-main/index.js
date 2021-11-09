@@ -129,7 +129,7 @@ const sendQeueContent = () => {
                 }
                 const opts = {
                     "reply_markup": {
-                        "inline_keyboard": [currentMessagesToSend[index].buttons.map(setInlineKeyboard)]
+                                "keyboard": currentMessagesToSend[index].buttons.map(setReplyKeyboard), "one_time_keyboard": true
                     }
                 }
                 telegramRequest.url = `${telegram_url}${telegram_bot_id}/sendMessage`;
