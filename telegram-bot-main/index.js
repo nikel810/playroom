@@ -172,7 +172,7 @@ app.post('/telegram_hook', function(req, res){
         
         messageTosend = req.body.callback_query.data
         chat_id = req.body.callback_query.message.chat.id
-        arrOptions = req.body.callback_query.message.reply_markup.inline_keyboard[0]
+        arrOptions = req.body.callback_query.message.reply_markup.keyboard[0]
 
         let objAns = arrOptions.find(o => o.callback_data === req.body.callback_query.data);
         
