@@ -115,14 +115,14 @@ const sendQeueContent = () => {
                 telegramRequest.url = `${telegram_url}${telegram_bot_id}/sendAnimation`;
                 telegramRequest.body = { chat_id: chat_id, animation: sourceMedia};
             } else if (type == "dialog"){ //SEND USER INPUT (TEXT QUESTION OR BUTTONS/KEYWORD OPTIONS)
-                function setInlineKeyboard(items, ind) {
+                function setReplyKeyboard(items, ind) {
                     let button_option = {'text':currentMessagesToSend[index].buttons[ind], 'callback_data':currentMessagesToSend[index].payloads[ind]};
-                    return button_option;
+                    return [button_option];
                 }
                 const opts = {
                     "reply_markup": {
-                                "inline_keyboard": [currentMessagesToSend[index].buttons.map(setInlineKeyboard)]
-                            }
+                                "keyboard": currentMessagesToSend[index].buttons.map(setReplyKeyboard), "one_time_keyboard": true
+                    }
                 }
                 telegramRequest.url = `${telegram_url}${telegram_bot_id}/sendMessage`;
                 telegramRequest.body = { chat_id: chat_id, text:  currentMessagesToSend[index].button_message, reply_markup:opts.reply_markup};
@@ -172,7 +172,7 @@ app.post('/telegram_hook', function(req, res){
         
         messageTosend = req.body.callback_query.data
         chat_id = req.body.callback_query.message.chat.id
-        arrOptions = req.body.callback_query.message.reply_markup.inline_keyboard[0]
+        arrOptions = req.body.callback_query.message.reply_markup.keyboard[0]
 
         let objAns = arrOptions.find(o => o.callback_data === req.body.callback_query.data);
         
