@@ -117,11 +117,11 @@ const sendQeueContent = () => {
             } else if (type == "dialog"){ //SEND USER INPUT (TEXT QUESTION OR BUTTONS/KEYWORD OPTIONS)
                 function setReplyKeyboard(items, ind) {
                     let button_option = {'text':currentMessagesToSend[index].buttons[ind], 'callback_data':currentMessagesToSend[index].payloads[ind]};
-                    return [button_option];
+                    return button_option;
                 }
                 const opts = {
                     "reply_markup": {
-                                "keyboard": currentMessagesToSend[index].buttons.map(setReplyKeyboard), "one_time_keyboard": true
+                                "keyboard": [currentMessagesToSend[index].buttons.map(setReplyKeyboard)], "one_time_keyboard": true
                     }
                 }
                 telegramRequest.url = `${telegram_url}${telegram_bot_id}/sendMessage`;
